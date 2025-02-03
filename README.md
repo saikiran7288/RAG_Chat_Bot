@@ -19,18 +19,7 @@
 
 📂 Project Structure
 
-
-  📁 RAG_Chatbot  
-  │── 📂 data  
-  │   ├── corpus.txt  # Sample text corpus  
-  │── 📂 models  
-  │   ├── embeddings.py  # Code for embedding text and storing in vector DB  
-  │── 📂 database  
-  │   ├── schema.sql  # MySQL schema for chat history  
-  │── 📂 api  
-  │   ├── rag_chatbot.py  # Flask API  
-  │── requirements.txt  
-  │── README.md  
+ 
 
 
 🛠️ Setup & Installation
