@@ -1,3 +1,6 @@
+
+
+
 🚀 RAG Chatbot with FLAN-T5-Base & Chroma DB 🤖
 
 This repository contains a RAG (Retrieval-Augmented Generation) chatbot powered by the FLAN-T5-Base language model from Google! 🌟 It's designed to answer questions by first retrieving relevant context from a document and then generating accurate and informative responses using cutting-edge language models. 💬
@@ -62,3 +65,21 @@ Input your PDF document 📄
 Run the chatbot and ask your question! 🔍
 
 🌟 Go ahead and explore the RAG chatbot, where questions meet answers through advanced AI technologies! 💬🚀
+
+## 📂 Project Structure
+
+The following is the structure of this project:
+
+📄 .gitignore
+📄 app.py
+📄 Data.pdf
+📄 data_preprocessing.py
+📄 demo.py
+📄 embed_store.py
+📄 rag_chatbot.py
+📄 requirements.txt
+📂 templates
+    📄 index.html
+📂 __pycache__
+    📄 rag_chatbot.cpython-311.pyc
+(base) PS C:\Users\ksaik\OneDrive\Desktop\Rag_Chatbot> 
