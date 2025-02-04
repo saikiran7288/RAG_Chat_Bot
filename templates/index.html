@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .chat-box {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            overflow-y: scroll;
+        }
+        .chat-box div {
+            margin-bottom: 10px;
+        }
+        .input-box {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        .ask-btn {
+            padding: 10px;
+            width: 100%;
+            max-width: 600px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .ask-btn:hover {
+            background-color: #45a049;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar for Chat History -->
+        <div class="sidebar">
+            <h2>Chat History</h2>
+            <div id="chat-history">
+                <!-- Chat history will be displayed here -->
+                {% for question, response in chat_history %}
+                    <div><b>You:</b> {{ question }}</div>
+                    <div><b>Bot:</b> {{ response }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Main Chatbox Area -->
+        <div class="chat-container">
+            <h1>Ask the RAG Chatbot</h1>
+            <div id="chat-box" class="chat-box">
+                <!-- Chatbox will display conversation here -->
+            </div>
+            <input type="text" id="question-input" class="input-box" placeholder="Ask your question here...">
+            <button id="ask-btn" class="ask-btn">Ask</button>
+        </div>
+    </div>
+
+    <script>
+        const askButton = document.getElementById('ask-btn');
+        const questionInput = document.getElementById('question-input');
+        const chatBox = document.getElementById('chat-box');
+        const chatHistory = document.getElementById('chat-history');
+
+        askButton.addEventListener('click', () => {
+            const question = questionInput.value.trim();
+            if (question === '') return;
+
+            // Display the question in the chat box
+            chatBox.innerHTML += `<div><b>You:</b> ${question}</div>`;
+
+            // Clear the input field
+            questionInput.value = '';
+
+            // Send the question to the Flask API
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the bot's response in the chat box
+                chatBox.innerHTML += `<div><b>Bot:</b> ${data.response}</div>`;
+
+                // Optionally, update the chat box display
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error with the request.');
+            });
+        });
+    </script>
+
+</body>
+</html>

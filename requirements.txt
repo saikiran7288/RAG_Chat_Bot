@@ -1,0 +1,8 @@
+ sentence-transformers 
+ chromadb 
+ pypdf 
+ transformers 
+ flask 
+ flask_ngrok 
+ torch
+ PyPDF2
